@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import ast
 
 
@@ -44,3 +46,13 @@ class Lexer(ast.NodeVisitor):
 
         if id:
             return [(node.lineno, "Call", id)]
+
+
+if __name__ == "__main__":
+    with open("lexer.py") as f:
+        tree = ast.parse(f.read())
+
+    for node in ast.walk(tree):
+        ret = Lexer().visit(node)
+        if ret:
+            print ret
