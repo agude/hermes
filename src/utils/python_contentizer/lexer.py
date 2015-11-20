@@ -27,6 +27,7 @@ class Lexer(ast.NodeVisitor):
 
     def visit_Call(self, node):
         """Called for function and method calls."""
+        id = None
         # Some nodes have their name in the function object
         try:
             id = node.func.id
@@ -41,4 +42,5 @@ class Lexer(ast.NodeVisitor):
 
         self.generic_visit(node)
 
-        return [(node.lineno, "Call", id)]
+        if id:
+            return [(node.lineno, "Call", id)]
